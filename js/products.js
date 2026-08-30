@@ -245,5 +245,21 @@ const products = [
     featured: true,
     amazonUrl: "https://link.amazon/B03CAp2Ms",
     image: "images/olaplex-no4-shampoo.jpg",
+  },  
+  {
+    id: 15,
+    name: "Rena Chris Gua Sha y Rodillo Facial de Acero Inoxidable, Masajeador Facial Manual & Herramienta GuaSha, Esculpe la Línea de la Mandíbula y Reduce las Bolsas, Regalo para el Cuidado de la Piel (Plata)",
+    category: "skincare",
+    price: "13,99€",
+    rating: 4.5,
+    description: "Rodillo facial y herramienta Gua Sha de acero inoxidable para masajear, definir la mandíbula y cuidar la piel.",
+    details:
+      "Set de masaje facial de acero inoxidable diseñado para complementar la rutina de cuidado de la piel. Su formato permite realizar masajes faciales y trabajar zonas como la mandíbula y el contorno de los ojos.",
+    features: ["Acero inoxidable", "Rodillo facial", "Herramienta Gua Sha", "Ideal para la rutina de skincare"],
+    curatorNote: "Una herramienta sencilla y elegante para añadir un momento de masaje a la rutina facial.",
+    badge: null,
+    featured: false,
+    amazonUrl: "https://link.amazon/B0hZEd8QH",
+    image: "images/61-qgjcOoTL._AC_SL1500_.jpg",
   },
 ];
