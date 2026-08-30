@@ -262,4 +262,20 @@ const products = [
     amazonUrl: "https://link.amazon/B0b2gALDC",
     image: "images/61-qgjcOoTL._AC_SL1500_.jpg",
   },
+  {
+    id: 16,
+    name: "The Ordinary Hyaluronic Acid 2% + B5 with Ceramides",
+    category: "beauty",
+    price: "9,20€",
+    rating: 4.5,
+    description: "Multidimensional hydrating serum formulated with hyaluronic acid, vitamin B5, and ceramides to leave skin softer, smoother, and more hydrated.",
+    details:
+      "A lightweight hydrating serum designed to support the skin's moisture barrier while providing multidimensional hydration. The formula combines hyaluronic acid, vitamin B5, and ceramides to help leave the skin feeling softer, smoother, and more supple.",
+    features: ["2% hyaluronic acid", "Vitamin B5", "Ceramides", "Helps support the skin barrier"],
+    curatorNote: "A simple, effective hydration serum that fits easily into any daily skincare routine.",
+    badge: null,
+    featured: false,
+    amazonUrl: "https://link.amazon/B0ePJTFBi",
+    image: "images/41TKJhJ-igL._SL1080_.jpg",
+  },
 ];
