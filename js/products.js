@@ -243,7 +243,7 @@ const products = [
     curatorNote: "The shampoo colorists actually recommend after a lightening service.",
     badge: null,
     featured: true,
-    amazonUrl: "https://link.amazon/B03CAp2Ms",
+    amazonUrl: "https://link.amazon/B0bAC2fDL",
     image: "images/olaplex-no4-shampoo.jpg",
   },
   {
@@ -259,7 +259,7 @@ const products = [
     curatorNote: "A sleek and practical facial massage tool that adds a relaxing touch to any skincare routine.",
     badge: null,
     featured: false,
-    amazonUrl: "https://link.amazon/B0hZEd8QH",
+    amazonUrl: "https://link.amazon/B0b2gALDC",
     image: "images/61-qgjcOoTL._AC_SL1500_.jpg",
   },
 ];
