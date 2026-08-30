@@ -260,6 +260,6 @@ const products = [
     badge: null,
     featured: false,
     amazonUrl: "https://link.amazon/B0hZEd8QH",
-    image: "images/rena-chris-gua-sha-stainless-steel.jpg",
+    image: "images/61-qgjcOoTL._AC_SL1500_.jpg",
   },
 ];
