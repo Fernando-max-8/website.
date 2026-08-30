@@ -278,4 +278,20 @@ const products = [
     amazonUrl: "https://link.amazon/B0ePJTFBi",
     image: "images/41TKJhJ-igL._SL1080_.jpg",
   },
+  {
+    id: 17,
+    name: "SKIN1004 Madagascar Centella Ampoule Foam",
+    category: "beauty",
+    price: "15,45€",
+    rating: 4.5,
+    description: "A gentle facial cleansing foam with Madagascar Centella designed to cleanse the skin while leaving it feeling fresh and comfortable.",
+    details:
+      "A creamy cleansing foam formulated with Madagascar Centella to help remove impurities and excess oil without leaving the skin feeling overly dry. Its gentle formula makes it a practical addition to a daily skincare routine.",
+    features: ["Madagascar Centella", "Gentle cleansing foam", "Helps remove impurities", "Suitable for daily use"],
+    curatorNote: "A gentle everyday cleanser for a fresh and comfortable skincare routine.",
+    badge: null,
+    featured: false,
+    amazonUrl: "https://link.amazon/B06lyhkq7",
+    image: "images/71d4b0WSJXL._AC_SL1500_.jpg",
+  },
 ];
