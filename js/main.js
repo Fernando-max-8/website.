@@ -26,6 +26,8 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.2"/><path d="M8 20h8M12 16v4"/></svg>',
     travel:
       '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13l8-2 6.5-6.5a1.5 1.5 0 1 1 2 2L13 13l-2 8-2.5-5.5L3 13Z"/></svg>',
+    beauty:
+      '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v4.2a3 3 0 0 1-.7 1.9L8 11.4A5 5 0 0 0 7 14.5V19a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-4.5a5 5 0 0 0-1-3.1l-1.3-2.3a3 3 0 0 1-.7-1.9V3"/></svg>',
     star:
       '<svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.5 6 .8-4.4 4.2 1.1 6-5.3-3-5.3 3 1.1-6L1.4 7.8l6-.8L10 1.5Z"/></svg>',
     search:
@@ -245,7 +247,8 @@
   }
 
   function parsePrice(str) {
-    return parseFloat(str.replace(/[^\d.,]/g, "").replace(",", "."));
+    const n = parseFloat(str.replace(/[^\d.,]/g, "").replace(",", "."));
+    return Number.isNaN(n) ? 0 : n;
   }
 
   function renderFilterPanel() {
