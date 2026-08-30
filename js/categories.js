@@ -49,4 +49,11 @@ const categories = [
     tint: "#E8E2D2",
     description: "Gear that earns its place in a carry-on.",
   },
+  {
+    slug: "beauty",
+    name: "Beauty",
+    icon: "beauty",
+    tint: "#EAE2DE",
+    description: "Skin and hair care worth repurchasing.",
+  },
 ];
