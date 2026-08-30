@@ -245,8 +245,8 @@ const products = [
     featured: true,
     amazonUrl: "https://link.amazon/B03CAp2Ms",
     image: "images/olaplex-no4-shampoo.jpg",
-  },  
-  {
+  },
+    {
     id: 15,
     name: "Rena Chris Gua Sha and Facial Roller in Stainless Steel",
     category: "skincare",
@@ -261,5 +261,5 @@ const products = [
     featured: false,
     amazonUrl: "https://link.amazon/B0hZEd8QH",
     image: "images/61-qgjcOoTL._AC_SL1500_.jpg",
-},
+  },
 ];
