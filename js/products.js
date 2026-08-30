@@ -249,7 +249,7 @@ const products = [
   {
     id: 15,
     name: "Rena Chris Gua Sha and Facial Roller in Stainless Steel",
-    category: "skincare",
+    category: "beauty",
     price: "13,99€",
     rating: 4.5,
     description: "Manual stainless steel facial massager and Gua Sha tool designed to sculpt the jawline and reduce under-eye puffiness.",
