@@ -246,20 +246,20 @@ const products = [
     amazonUrl: "https://link.amazon/B03CAp2Ms",
     image: "images/olaplex-no4-shampoo.jpg",
   },  
-  {
+    {
     id: 15,
-    name: "Rena Chris Gua Sha y Rodillo Facial de Acero Inoxidable, Masajeador Facial Manual & Herramienta GuaSha, Esculpe la Línea de la Mandíbula y Reduce las Bolsas, Regalo para el Cuidado de la Piel (Plata)",
+    name: "Rena Chris Gua Sha and Facial Roller in Stainless Steel",
     category: "skincare",
     price: "13,99€",
     rating: 4.5,
-    description: "Rodillo facial y herramienta Gua Sha de acero inoxidable para masajear, definir la mandíbula y cuidar la piel.",
+    description: "Manual stainless steel facial massager and Gua Sha tool designed to sculpt the jawline and reduce under-eye puffiness.",
     details:
-      "Set de masaje facial de acero inoxidable diseñado para complementar la rutina de cuidado de la piel. Su formato permite realizar masajes faciales y trabajar zonas como la mandíbula y el contorno de los ojos.",
-    features: ["Acero inoxidable", "Rodillo facial", "Herramienta Gua Sha", "Ideal para la rutina de skincare"],
-    curatorNote: "Una herramienta sencilla y elegante para añadir un momento de masaje a la rutina facial.",
+      "A stainless steel Gua Sha and facial roller set for a refreshing skincare massage. Its cool metal surface helps soothe the skin while the ergonomic design makes it easy to massage the face, define the jawline, and reduce the appearance of under-eye bags. A thoughtful gift for anyone who enjoys a simple and relaxing skincare routine.",
+    features: ["Stainless steel construction", "Gua Sha and facial roller", "Helps sculpt the jawline", "Helps reduce under-eye puffiness"],
+    curatorNote: "A sleek and practical facial massage tool that adds a relaxing touch to any skincare routine.",
     badge: null,
     featured: false,
     amazonUrl: "https://link.amazon/B0hZEd8QH",
-    image: "images/61-qgjcOoTL._AC_SL1500_.jpg",
+    image: "images/rena-chris-gua-sha-stainless-steel.jpg",
   },
 ];
