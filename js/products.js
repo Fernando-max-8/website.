@@ -261,5 +261,5 @@ const products = [
     featured: false,
     amazonUrl: "https://link.amazon/B0hZEd8QH",
     image: "images/61-qgjcOoTL._AC_SL1500_.jpg",
-  },
+},
 ];
