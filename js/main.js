@@ -162,12 +162,11 @@
   /* ------------------------------------------------------------
      PRODUCT CARD (shared by featured + shop grid)
      ------------------------------------------------------------ */
-  function productCard(product, index) {
+  function productCard(product) {
     const img = product.image || placeholderImage(product);
     const cat = categories.find((c) => c.slug === product.category);
-    const delay = Math.min(index || 0, 8) * 45;
     return `
-      <article class="product-card reveal" data-id="${product.id}" tabindex="0" style="transition-delay:${delay}ms">
+      <article class="product-card reveal" data-id="${product.id}" tabindex="0">
         <div class="product-media">
           ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ""}
           <span class="curator-note">${product.curatorNote}</span>
@@ -206,7 +205,7 @@
   function renderFeatured() {
     const wrap = document.getElementById("featured-grid");
     const featured = products.filter((p) => p.featured).slice(0, 4);
-    wrap.innerHTML = featured.map((p, i) => productCard(p, i)).join("");
+    wrap.innerHTML = featured.map(productCard).join("");
     wireProductCards(wrap);
     observeReveal(wrap);
   }
@@ -304,7 +303,7 @@
         </div>`;
       return;
     }
-    grid.innerHTML = results.map((p, i) => productCard(p, i)).join("");
+    grid.innerHTML = results.map(productCard).join("");
     wireProductCards(grid);
     observeReveal(grid);
   }
@@ -366,7 +365,6 @@
      ------------------------------------------------------------ */
   function renderFooter() {
     document.getElementById("footer-brand-name").textContent = siteConfig.brandName;
-    document.getElementById("footer-brand-mark").textContent = siteConfig.brandInitial;
     document.getElementById("footer-tagline").textContent = siteConfig.tagline;
     document.getElementById("disclosure-text").textContent = siteConfig.affiliateDisclosure;
     document.getElementById("footer-year").textContent = new Date().getFullYear();
@@ -395,153 +393,92 @@
   }
 
   /* ------------------------------------------------------------
-     HERO SHOWCASE — "Latest arrivals": a rotating carousel built
-     entirely from real products.js entries (newest ids first).
-     Reuses placeholderImage/ratingStars above and openModal below
-     — no parallel product/modal system.
+     HERO SHOWCASE — "Latest arrivals" auto-rotating carousel.
+     Built on top of existing products array and openModal — no
+     parallel systems. Sorted by id descending (newest first).
      ------------------------------------------------------------ */
   const SHOWCASE_SIZE = 6;
-  const SHOWCASE_INTERVAL_MS = 5000;
-  const SHOWCASE_TRANSITION_MS = 420;
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  let showcaseItems = [];
-  let showcaseIndex = 0;
-  let showcaseTimer = null;
+  const SHOWCASE_MS   = 5000;
+  const SHOWCASE_T    = 420;
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let scItems = [], scIdx = 0, scTimer = null;
 
   function initShowcase() {
     const root = document.getElementById("hero-showcase");
     if (!root) return;
-
-    showcaseItems = products
-      .slice()
-      .sort((a, b) => b.id - a.id)
-      .slice(0, SHOWCASE_SIZE);
-    if (!showcaseItems.length) return;
-
+    scItems = products.slice().sort((a, b) => b.id - a.id).slice(0, SHOWCASE_SIZE);
+    if (!scItems.length) return;
     root.innerHTML = `
-      <div class="showcase-slide" id="showcase-slide"></div>
-      <div class="showcase-dots" id="showcase-dots"></div>
-      <button class="showcase-nav prev" id="showcase-prev" aria-label="Previous arrival">
+      <div class="sc-slide" id="sc-slide"></div>
+      <div class="sc-dots" id="sc-dots"></div>
+      <button class="sc-nav sc-prev" id="sc-prev" aria-label="Previous">
         <svg viewBox="0 0 20 20" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 6 10l6 6"/></svg>
       </button>
-      <button class="showcase-nav next" id="showcase-next" aria-label="Next arrival">
+      <button class="sc-nav sc-next" id="sc-next" aria-label="Next">
         <svg viewBox="0 0 20 20" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4l6 6-6 6"/></svg>
-      </button>
-    `;
-    root.setAttribute("tabindex", "0");
-    root.setAttribute("role", "group");
-    root.setAttribute("aria-roledescription", "carousel");
-
-    renderShowcaseSlide(false);
-
-    document.getElementById("showcase-prev").addEventListener("click", (e) => {
-      e.stopPropagation();
-      advanceShowcase(-1);
-      restartShowcaseTimer();
+      </button>`;
+    root.setAttribute("tabindex","0");
+    paintSlide(false);
+    document.getElementById("sc-prev").addEventListener("click", e => { e.stopPropagation(); go(-1); restartTimer(); });
+    document.getElementById("sc-next").addEventListener("click", e => { e.stopPropagation(); go(1);  restartTimer(); });
+    root.addEventListener("click", e => { if (e.target.closest(".sc-nav,.sc-dots")) return; openModal(scItems[scIdx].id); });
+    root.addEventListener("keydown", e => { if (e.key === "Enter") openModal(scItems[scIdx].id); });
+    root.addEventListener("mouseenter", stopTimer);
+    root.addEventListener("mouseleave", startTimer);
+    // Touch swipe support
+    let tx = 0;
+    root.addEventListener("touchstart", e => { tx = e.touches[0].clientX; }, { passive: true });
+    root.addEventListener("touchend", e => {
+      const dx = e.changedTouches[0].clientX - tx;
+      if (Math.abs(dx) > 40) { go(dx < 0 ? 1 : -1); restartTimer(); }
     });
-    document.getElementById("showcase-next").addEventListener("click", (e) => {
-      e.stopPropagation();
-      advanceShowcase(1);
-      restartShowcaseTimer();
-    });
-
-    // Click or Enter anywhere on the box (except the nav/dots controls,
-    // which stop propagation themselves) opens the existing product modal.
-    root.addEventListener("click", (e) => {
-      if (e.target.closest(".showcase-nav") || e.target.closest(".showcase-dots")) return;
-      const current = showcaseItems[showcaseIndex];
-      if (current) openModal(current.id);
-    });
-    root.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        const current = showcaseItems[showcaseIndex];
-        if (current) openModal(current.id);
-      }
-    });
-
-    // Pause on hover, resume on mouse leave. Touch devices never hold a
-    // persistent hover state, so autoplay simply continues for them.
-    root.addEventListener("mouseenter", stopShowcaseTimer);
-    root.addEventListener("mouseleave", startShowcaseTimer);
-
-    startShowcaseTimer();
+    startTimer();
   }
 
-  function renderShowcaseSlide(animate) {
-    const slideRoot = document.getElementById("showcase-slide");
-    if (!slideRoot) return;
-    const product = showcaseItems[showcaseIndex];
-    const cat = categories.find((c) => c.slug === product.category);
-    const img = product.image || placeholderImage(product);
-
+  function paintSlide(animate) {
+    const slide = document.getElementById("sc-slide");
+    if (!slide) return;
+    const p = scItems[scIdx];
+    const cat = categories.find(c => c.slug === p.category);
+    const img = p.image || placeholderImage(p);
     const paint = () => {
-      slideRoot.innerHTML = `
-        <span class="showcase-tag-new">New arrival</span>
-        <div class="showcase-image"><img src="${img}" alt="${product.name}" loading="lazy"></div>
-        <div class="showcase-info">
-          <span class="showcase-category">${cat ? cat.name : ""}</span>
-          <span class="showcase-name">${product.name}</span>
-          <p class="showcase-desc">${product.description}</p>
-          <div class="showcase-meta">
-            <span class="showcase-rating">${ratingStars(product.rating)}</span>
-            <span class="showcase-price">${product.price}</span>
+      slide.innerHTML = `
+        <span class="sc-tag">New arrival</span>
+        <div class="sc-img"><img src="${img}" alt="${p.name}" loading="lazy"></div>
+        <div class="sc-info">
+          <span class="sc-cat">${cat ? cat.name : ""}</span>
+          <span class="sc-name">${p.name}</span>
+          <p class="sc-desc">${p.description}</p>
+          <div class="sc-meta">
+            <span class="sc-rating">${ratingStars(p.rating)}</span>
+            <span class="sc-price">${p.price}</span>
           </div>
-        </div>
-      `;
-      requestAnimationFrame(() => slideRoot.classList.add("is-active"));
+        </div>`;
+      requestAnimationFrame(() => slide.classList.add("is-active"));
     };
-
-    if (animate && !reducedMotion) {
-      slideRoot.classList.remove("is-active");
-      slideRoot.classList.add("is-leaving");
-      setTimeout(() => {
-        slideRoot.classList.remove("is-leaving");
-        paint();
-      }, SHOWCASE_TRANSITION_MS);
-    } else {
-      paint();
-    }
-    renderShowcaseDots();
+    if (animate && !prefersReduced) {
+      slide.classList.remove("is-active");
+      slide.classList.add("is-out");
+      setTimeout(() => { slide.classList.remove("is-out"); paint(); }, SHOWCASE_T);
+    } else { paint(); }
+    paintDots();
   }
 
-  function renderShowcaseDots() {
-    const dots = document.getElementById("showcase-dots");
+  function paintDots() {
+    const dots = document.getElementById("sc-dots");
     if (!dots) return;
-    dots.innerHTML = showcaseItems
-      .map(
-        (_, i) =>
-          `<button class="showcase-dot ${i === showcaseIndex ? "is-active" : ""}" data-index="${i}" aria-label="Go to arrival ${i + 1}"></button>`
-      )
-      .join("");
-    dots.querySelectorAll("[data-index]").forEach((dot) => {
-      dot.addEventListener("click", (e) => {
-        e.stopPropagation();
-        showcaseIndex = Number(dot.dataset.index);
-        renderShowcaseSlide(true);
-        restartShowcaseTimer();
-      });
+    dots.innerHTML = scItems.map((_, i) =>
+      `<button class="sc-dot${i === scIdx ? " is-active" : ""}" data-i="${i}" aria-label="Slide ${i+1}"></button>`
+    ).join("");
+    dots.querySelectorAll("[data-i]").forEach(d => {
+      d.addEventListener("click", e => { e.stopPropagation(); scIdx = +d.dataset.i; paintSlide(true); restartTimer(); });
     });
   }
 
-  function advanceShowcase(dir) {
-    showcaseIndex = (showcaseIndex + dir + showcaseItems.length) % showcaseItems.length;
-    renderShowcaseSlide(true);
-  }
-
-  function startShowcaseTimer() {
-    if (reducedMotion || showcaseItems.length < 2) return;
-    stopShowcaseTimer();
-    showcaseTimer = setInterval(() => advanceShowcase(1), SHOWCASE_INTERVAL_MS);
-  }
-  function stopShowcaseTimer() {
-    if (showcaseTimer) clearInterval(showcaseTimer);
-    showcaseTimer = null;
-  }
-  function restartShowcaseTimer() {
-    stopShowcaseTimer();
-    startShowcaseTimer();
-  }
+  function go(dir) { scIdx = (scIdx + dir + scItems.length) % scItems.length; paintSlide(true); }
+  function startTimer() { if (prefersReduced || scItems.length < 2) return; stopTimer(); scTimer = setInterval(() => go(1), SHOWCASE_MS); }
+  function stopTimer() { clearInterval(scTimer); scTimer = null; }
+  function restartTimer() { stopTimer(); startTimer(); }
 
   /* ------------------------------------------------------------
      MODAL
