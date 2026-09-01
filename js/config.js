@@ -23,9 +23,9 @@ const siteConfig = {
 
   hero: {
     eyebrow: "An independent selection",
-    heading: "Fewer products.\nBetter considered.",
+    heading: "Curated product recommendations for everyday life.",
     subheading:
-      "We spend the hours comparing specs, reading reviews and returning the disappointments — so you only ever see the shortlist.",
+      "We spend the hours comparing specifications, reading reviews and rejecting disappointing options, so you can explore a more considered shortlist.",
     ctaLabel: "Explore the selection",
     ctaHref: "#shop",
   },
@@ -67,12 +67,9 @@ const siteConfig = {
     ],
     Company: [
       { label: "About", href: "#about" },
-      { label: "Contact", href: "mailto:hello@example.com" },
     ],
     Legal: [
       { label: "Affiliate disclosure", href: "#disclosure" },
-      { label: "Privacy policy", href: "#" },
-      { label: "Terms of use", href: "#" },
     ],
   },
 };

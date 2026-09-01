@@ -94,17 +94,9 @@
   function renderHeader() {
     document.getElementById("brand-name").textContent = siteConfig.brandName;
     document.getElementById("brand-initial").textContent = siteConfig.brandInitial;
-    document.title = `${siteConfig.brandName} — ${siteConfig.tagline}`;
-    document.querySelector('meta[name="description"]').setAttribute("content", siteConfig.metaDescription);
-
     const nav = document.getElementById("main-nav");
     const mobileNav = document.getElementById("mobile-nav");
-    siteConfig.nav.forEach((item) => {
-      const a = document.createElement("a");
-      a.href = item.href;
-      a.textContent = item.label;
-      nav.appendChild(a);
-
+    nav.querySelectorAll("a").forEach((a) => {
       const ma = a.cloneNode(true);
       ma.addEventListener("click", closeMobileNav);
       mobileNav.appendChild(ma);
@@ -163,6 +155,7 @@
      PRODUCT CARD (shared by featured + shop grid)
      ------------------------------------------------------------ */
   function productCard(product) {
+    const hasProductImage = Boolean(product.image);
     const img = product.image || placeholderImage(product);
     const cat = categories.find((c) => c.slug === product.category);
     return `
@@ -170,7 +163,7 @@
         <div class="product-media">
           ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ""}
           <span class="curator-note">${product.curatorNote}</span>
-          <img src="${img}" alt="${product.name}" loading="lazy">
+          <img src="${img}" alt="${hasProductImage ? `${product.name} product image` : `Illustration for ${product.name}`}" width="400" height="400" loading="lazy" decoding="async">
         </div>
         <div class="product-body">
           <span class="product-category">${cat ? cat.name : ""}</span>
@@ -182,7 +175,7 @@
           </div>
           <div class="product-actions">
             <button class="btn-view" data-open="${product.id}">Details</button>
-            <a class="btn-amazon" href="${product.amazonUrl}" target="_blank" rel="noopener noreferrer sponsored" data-amazon="${product.id}">View on Amazon</a>
+            ${isValidProductUrl(product.amazonUrl) ? `<a class="btn-amazon" href="${product.amazonUrl}" target="_blank" rel="noopener noreferrer sponsored" data-amazon="${product.id}">View on Amazon</a>` : ""}
           </div>
         </div>
       </article>`;
@@ -197,6 +190,10 @@
         if (e.key === "Enter" && !e.target.closest("a,button")) openModal(Number(card.dataset.id));
       });
     });
+  }
+
+  function isValidProductUrl(url) {
+    return typeof url === "string" && /^https?:\/\//i.test(url) && !url.includes("AMAZON_AFFILIATE_LINK_HERE");
   }
 
   /* ------------------------------------------------------------
@@ -353,7 +350,7 @@
         (pt, i) => `
       <div class="about-point reveal">
         <span class="about-point-label">${String(i + 1).padStart(2, "0")}</span>
-        <div><h4>${pt.title}</h4><p>${pt.text}</p></div>
+        <div><h3>${pt.title}</h3><p>${pt.text}</p></div>
       </div>`
       )
       .join("");
@@ -385,7 +382,7 @@
       .map(
         ([heading, links]) => `
       <div class="footer-col">
-        <h5>${heading}</h5>
+        <p class="footer-col-title">${heading}</p>
         ${links.map((l) => `<a href="${l.href}">${l.label}</a>`).join("")}
       </div>`
       )
@@ -444,7 +441,7 @@
     const paint = () => {
       slide.innerHTML = `
         <span class="sc-tag">New arrival</span>
-        <div class="sc-img"><img src="${img}" alt="${p.name}" loading="lazy"></div>
+        <div class="sc-img"><img src="${img}" alt="${p.image ? `${p.name} product image` : `Illustration for ${p.name}`}" width="400" height="400" fetchpriority="high" decoding="async"></div>
         <div class="sc-info">
           <span class="sc-cat">${cat ? cat.name : ""}</span>
           <span class="sc-name">${p.name}</span>
@@ -490,7 +487,7 @@
     const overlay = document.getElementById("modal-overlay");
 
     document.getElementById("modal-image").src = product.image || placeholderImage(product);
-    document.getElementById("modal-image").alt = product.name;
+    document.getElementById("modal-image").alt = product.image ? `${product.name} product image` : `Illustration for ${product.name}`;
     document.getElementById("modal-category").textContent = cat ? cat.name : "";
     document.getElementById("modal-name").textContent = product.name;
     document.getElementById("modal-rating").innerHTML = ratingStars(product.rating);
@@ -502,8 +499,10 @@
       .join("");
     const amazonBtn = document.getElementById("modal-amazon");
     amazonBtn.href = product.amazonUrl;
+    amazonBtn.hidden = !isValidProductUrl(product.amazonUrl);
 
     overlay.classList.add("is-open");
+    overlay.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
     lastFocused = document.activeElement;
     document.getElementById("modal-close").focus();
@@ -512,6 +511,7 @@
   let lastFocused = null;
   function closeModal() {
     document.getElementById("modal-overlay").classList.remove("is-open");
+    document.getElementById("modal-overlay").setAttribute("aria-hidden", "true");
     document.body.classList.remove("modal-open");
     if (lastFocused) lastFocused.focus();
   }
@@ -540,6 +540,7 @@
     navToggle.addEventListener("click", () => {
       const isOpen = mobileNav.classList.toggle("is-open");
       navToggle.setAttribute("aria-expanded", String(isOpen));
+      navToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
       navToggle.innerHTML = isOpen ? ICONS.close : ICONS.menu;
     });
   }
