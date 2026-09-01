@@ -1095,3 +1095,7 @@ body.modal-open { overflow: hidden; }
   .sc-info { margin: 12px; padding: 11px 13px; }
   .sc-img img { padding: 24px; }
 }
+/* Hide prices site-wide */
+.product-price,
+.sc-price,
+.modal-price { display: none; }
