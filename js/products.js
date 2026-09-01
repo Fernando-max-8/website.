@@ -218,7 +218,7 @@ const products = [
     id: 13,
     name: "CeraVe Blemish Control Gel Cleanser",
     category: "beauty",
-    price: "11,20€",
+    price: "consult on Amazon",
     rating: 4.6,
     description: "A salicylic acid gel cleanser for acne-prone, oily skin.",
     details:
@@ -234,7 +234,7 @@ const products = [
     id: 14,
     name: "Olaplex Nº.4 Bond Maintenance Shampoo",
     category: "beauty",
-    price: "16,50€",
+    price: "consult on Amazon",
     rating: 4.7,
     description: "A strengthening, sulfate-free shampoo that reduces breakage.",
     details:
@@ -250,7 +250,7 @@ const products = [
     id: 15,
     name: "Rena Chris Gua Sha and Facial Roller in Stainless Steel",
     category: "beauty",
-    price: "13,99€",
+    price: "consult on Amazon",
     rating: 4.5,
     description: "Manual stainless steel facial massager and Gua Sha tool designed to sculpt the jawline and reduce under-eye puffiness.",
     details:
@@ -266,7 +266,7 @@ const products = [
     id: 16,
     name: "The Ordinary Hyaluronic Acid 2% + B5 with Ceramides",
     category: "beauty",
-    price: "9,20€",
+    price: "consult on Amazon",
     rating: 4.5,
     description: "Multidimensional hydrating serum formulated with hyaluronic acid, vitamin B5, and ceramides to leave skin softer, smoother, and more hydrated.",
     details:
@@ -282,7 +282,7 @@ const products = [
     id: 17,
     name: "SKIN1004 Madagascar Centella Ampoule Foam",
     category: "beauty",
-    price: "15,45€",
+    price: "consult on Amazon",
     rating: 4.5,
     description: "A gentle facial cleansing foam with Madagascar Centella designed to cleanse the skin while leaving it feeling fresh and comfortable.",
     details:
