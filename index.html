@@ -12,14 +12,20 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>refinedboy</title>
-<meta name="description" content="">
+<title>Curated Product Recommendations | refinedboy</title>
+<meta name="description" content="Independent product recommendations across technology, home, fitness, beauty, office, travel and accessories. Explore a considered shortlist before you buy.">
+<meta name="robots" content="index,follow">
 <meta name="theme-color" content="#FAFAF8">
 
 <!-- Open Graph -->
-<meta property="og:title" content="refinedboy. — Curated products. Better choices.">
-<meta property="og:description" content="An independent, curated selection of products worth buying.">
+<meta property="og:title" content="Curated Product Recommendations | refinedboy">
+<meta property="og:description" content="Independent product recommendations across everyday categories, selected and compared before you buy.">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="refinedboy">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Curated Product Recommendations | refinedboy">
+<meta name="twitter:description" content="Independent product recommendations across everyday categories, selected and compared before you buy.">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2316150F'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='%23FAFAF8' font-family='Georgia,serif'%3EA%3C/text%3E%3C/svg%3E">
 
@@ -38,7 +44,13 @@
       <span class="brand-mark" id="brand-initial">refinedboy</span>
       <span id="brand-name">Refinedboy</span>
     </a>
-    <nav class="main-nav" id="main-nav" aria-label="Primary"></nav>
+    <nav class="main-nav" id="main-nav" aria-label="Primary">
+      <a href="#home">Home</a>
+      <a href="#shop">Shop</a>
+      <a href="#categories">Categories</a>
+      <a href="#featured">Featured</a>
+      <a href="#about">About</a>
+    </nav>
     <div class="header-actions">
       <button class="icon-btn nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -54,9 +66,9 @@
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <span class="eyebrow" id="hero-eyebrow"></span>
-        <h1 id="hero-heading"></h1>
-        <p id="hero-sub"></p>
+        <span class="eyebrow" id="hero-eyebrow">An independent selection</span>
+        <h1 id="hero-heading">Curated product recommendations for everyday life.</h1>
+        <p id="hero-sub">We spend the hours comparing specifications, reading reviews and rejecting disappointing options, so you can explore a more considered shortlist.</p>
         <div class="hero-cta">
           <a class="btn btn-primary" href="#shop" id="hero-cta">
             <span></span>
@@ -65,7 +77,7 @@
           <span class="hero-stat"><strong id="hero-count"></strong> products across <strong id="hero-cat-count"></strong> categories</span>
         </div>
       </div>
-      <div class="hero-visual" id="hero-showcase" aria-label="Latest arrivals" tabindex="0" role="group"></div>
+      <div class="hero-visual" id="hero-showcase" aria-label="Latest product recommendations. Select to view details." tabindex="0" role="button"></div>
     </div>
   </section>
 
@@ -161,8 +173,8 @@
     <div class="container about-grid">
       <div class="about-copy">
         <span class="eyebrow" id="about-eyebrow"></span>
-        <h2 style="font-family:var(--font-display);font-size:clamp(28px,3.2vw,40px);font-weight:500;margin-top:12px;max-width:16ch;" id="about-heading"></h2>
-        <p id="about-body"></p>
+        <h2 class="about-heading" id="about-heading">An honest second opinion, before you buy.</h2>
+        <p id="about-body">Every listing here has been researched and compared against its closest alternatives. We do not accept sponsorships for inclusion; qualifying purchases through some links may earn us a referral fee at no extra cost to you.</p>
       </div>
       <div class="about-points" id="about-points"></div>
     </div>
@@ -205,7 +217,7 @@
 </footer>
 
 <!-- ============================== PRODUCT MODAL ============================== -->
-<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-name">
+<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-name" aria-hidden="true">
   <div class="product-modal">
     <div class="modal-media">
       <img id="modal-image" src="" alt="">
