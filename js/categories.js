@@ -7,53 +7,13 @@
  */
 
 const categories = [
-  {
-    slug: "technology",
-    name: "Technology",
-    icon: "technology",
-    tint: "#E4E0D3",
-    description: "Everyday tools that quietly do their job well.",
-  },
-  {
-    slug: "home",
-    name: "Home",
-    icon: "home",
-    tint: "#E9E4D8",
-    description: "Objects considered enough to live with, not just to own.",
-  },
-  {
-    slug: "fitness",
-    name: "Fitness",
-    icon: "fitness",
-    tint: "#E2E2DA",
-    description: "Equipment built to outlast a January resolution.",
-  },
-  {
-    slug: "accessories",
-    name: "Accessories",
-    icon: "accessories",
-    tint: "#EDE6D6",
-    description: "Small additions that change how something feels to use.",
-  },
-  {
-    slug: "office",
-    name: "Office",
-    icon: "office",
-    tint: "#E6E3D9",
-    description: "Desk essentials chosen for calm, not clutter.",
-  },
-  {
-    slug: "travel",
-    name: "Travel",
-    icon: "travel",
-    tint: "#E8E2D2",
-    description: "Gear that earns its place in a carry-on.",
-  },
-  {
-    slug: "beauty",
-    name: "Beauty",
-    icon: "beauty",
-    tint: "#EAE2DE",
-    description: "Skin and hair care worth repurchasing.",
-  },
+  { slug: "cleansing",          name: "Cleansing",          icon: "cleansing",          tint: "#E4E0D3", description: "Cleansers, makeup removers, micellar water, and more." },
+  { slug: "moisturizing",       name: "Moisturizing",       icon: "moisturizing",       tint: "#E6E3D9", description: "Creams, moisturizers, and hydrating serums." },
+  { slug: "treatments",         name: "Treatments",         icon: "treatments",         tint: "#EDE6D6", description: "Products for specific skin concerns." },
+  { slug: "sun-care",           name: "Sun Care",           icon: "sun-care",           tint: "#F0E5C9", description: "Sunscreens and after-sun products." },
+  { slug: "masks",              name: "Masks",              icon: "masks",              tint: "#E2E2DA", description: "Masks and intensive treatments." },
+  { slug: "tools",              name: "Tools",              icon: "tools",              tint: "#E4E7E4", description: "Rollers, gua sha, electric cleansers, devices, and more." },
+  { slug: "body-care",          name: "Body Care",          icon: "body-care",          tint: "#E8E2D2", description: "Body care." },
+  { slug: "hair-scalp",         name: "Hair & Scalp",       icon: "hair-scalp",         tint: "#E6DDD4", description: "Hair and scalp care." },
+  { slug: "beauty-essentials",  name: "Beauty Essentials",  icon: "beauty-essentials",  tint: "#EDE4E8", description: "Beauty products that do not fit perfectly into the categories above." },
 ];
