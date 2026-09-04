@@ -368,12 +368,7 @@ body.modal-open { overflow: hidden; }
   .modal-body { padding: 64px 24px 32px; }
   .modal-close { top: 16px; right: 16px; }
   .hero { padding: 48px 0 64px; }
-  /* FIX: carousel — portrait ratio + ocultar desc para dar espacio a la imagen */
-  #hero-showcase { aspect-ratio: 1 / 1; }
-  .sc-desc { display: none; }
-  .sc-img img { padding: 24px; }
-  .sc-nav { display: none; }
-  .sc-info { margin: 12px; padding: 11px 13px; }
+  /* showcase mobile — see end of file */
 }
 
 @media (max-width: 480px) {
@@ -415,4 +410,46 @@ body.modal-open { overflow: hidden; }
 @media (max-width: 1024px) {
   #hero-showcase { aspect-ratio: 16 / 7; max-width: 100%; }
   .sc-nav { opacity: 1; }
+}
+
+/* ── MOBILE SHOWCASE ≤700px ─────────────────────────────────────────
+   Tarjeta de texto editorial: sin imagen (los archivos no siempre
+   están en el servidor), sin flechas, compacta y limpia.
+   Esta sección va al FINAL para que el cascade funcione correctamente.
+   ─────────────────────────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  #hero-showcase {
+    aspect-ratio: unset !important;
+    height: 152px;
+  }
+  /* Ocultar imagen y flechas en móvil */
+  .sc-img { display: none !important; }
+  .sc-nav { display: none !important; }
+  .sc-tag { display: none !important; }
+  /* El slide se estira para llenar la tarjeta */
+  .sc-slide { align-items: stretch; }
+  /* Info card ocupa todo el espacio disponible */
+  .sc-info {
+    position: static;
+    flex: 1;
+    margin: 0;
+    max-width: 100%;
+    border-radius: 0;
+    background: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
+    padding: 16px 20px 38px 20px;
+    border-left: 3px solid var(--accent);
+    justify-content: center;
+  }
+  .sc-cat  { display: block; margin-bottom: 6px; }
+  .sc-name { font-size: 16px; margin: 0; }
+  .sc-desc { display: none; }
+  /* Dots centrados en la parte inferior */
+  .sc-dots {
+    bottom: 10px;
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
